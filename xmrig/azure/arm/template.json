@@ -93,7 +93,7 @@
                     }
                 },
                 "startTask": {
-                    "commandLine": "[variables('commandLine')]",
+                    "commandLine": "[variables('commandLine_F2')]",
                     "userIdentity": {
                         "autoUser": {
                             "scope": "Task",
