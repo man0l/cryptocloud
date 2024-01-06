@@ -78,7 +78,7 @@
     },
     "pools": [
         {
-            "algo": "cn/r",
+            "algo": "rx/0",
             "coin": null,
             "url": "fastpool.xyz:10002",
             "user": "pernik",
