@@ -28,8 +28,12 @@
         }
     },
     "variables": {
-        "commandLine_template": "/bin/bash -c \"\ncd $HOME;\nsudo apt-get update --fix-missing;\nsudo apt-get -y install git build-essential cmake automake libtool autoconf wget;\ngit clone https://github.com/PrandoXMR/cryptocloud.git;\nmv cryptocloud/install.sh .;\nchmod +x install.sh;\n./install.sh;\ncd $HOME/xmrig/build;\n./xmrig --rig-id=cloud -u user_wallet -o user_pool_port \n\"",
-        "commandLine": "[replace(replace(variables('commandLine_template'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]"
+        "commandLine_template": "/bin/bash -c \"\ncd $HOME;\nsudo apt-get update --fix-missing;\nsudo apt-get -y install git build-essential cmake automake libtool autoconf wget;\ngit clone https://github.com/man0l/cryptocloud.git;\nmv cryptocloud/install.sh .;\nchmod +x install.sh;\n./install.sh;\ncd $HOME/xmrig/build;\n./xmrig --threads=3 --rig-id=pernik -u user_wallet -o user_pool_port \n\"",
+        "commandLine": "[replace(replace(variables('commandLine_template'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]",
+        
+        "commandLine_template_F2": "/bin/bash -c \"\ncd $HOME;\nsudo apt-get update --fix-missing;\nsudo apt-get -y install git build-essential cmake automake libtool autoconf wget;\ngit clone https://github.com/man0l/cryptocloud.git;\nmv cryptocloud/install.sh .;\nchmod +x install.sh;\n./install.sh;\ncd $HOME/xmrig/build;\n./xmrig --threads=1 --rig-id=pernik -u user_wallet -o user_pool_port \n\"",
+        "commandLine_F2": "[replace(replace(variables('commandLine_template_F2'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]"
+
     },
     "resources": [
         {
@@ -56,7 +60,7 @@
                 "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
             ],
             "properties": {
-                "vmSize": "STANDARD_F2s_v2", // Updated VM type
+                "vmSize": "STANDARD_F2s_v2",
                 "interNodeCommunication": "Disabled",
                 "taskSlotsPerNode": 1,
                 "taskSchedulingPolicy": {
@@ -109,7 +113,7 @@
                 "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
             ],
             "properties": {
-                "vmSize": "STANDARD_F4s_v2", // Updated VM type
+                "vmSize": "STANDARD_F4s_v2",
                 "interNodeCommunication": "Disabled",
                 "taskSlotsPerNode": 1,
                 "taskSchedulingPolicy": {
