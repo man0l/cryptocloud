@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "batchAccounts_batches_name": {
-            "defaultValue": "batches",
+            "defaultValue": "mypernikteam",
             "type": "String"
         },
         "VMs_F2": {
@@ -15,11 +15,11 @@
             "type": "Int"
         },
         "user_wallet": {
-            "defaultValue": "45fuUrFP8wXNhL6yw5Q8nnT5PZxT9qXuEDTPExtG38a6f7kweFVxij5aY4zXe6k6hYi7Uf63QSCMN1XCo9rQrwwUGJZwGSg",
+            "defaultValue": "ZEPHYR2v4R7eR3s7MRQsYVGsntm1cPy9xBoDHWy832V9aw1uSEW4ahhEPNKZeo6zd2EJxMWkMiQgPFKJ2R9tLuHLPsbJTwcCikf33",
             "type": "string"
         },
         "user_pool_port": {
-            "defaultValue": "us-west.minexmr.com:4444",
+            "defaultValue": "fastpool.xyz:10002",
             "type": "string"
         },
         "location": {
@@ -30,10 +30,8 @@
     "variables": {
         "commandLine_template": "/bin/bash -c \"\ncd $HOME;\nsudo apt-get update --fix-missing;\nsudo apt-get -y install git build-essential cmake automake libtool autoconf wget;\ngit clone https://github.com/man0l/cryptocloud.git;\nmv cryptocloud/install.sh .;\nchmod +x install.sh;\n./install.sh;\ncd $HOME/xmrig/build;\n./xmrig --threads=3 --rig-id=pernik -u user_wallet -o user_pool_port \n\"",
         "commandLine": "[replace(replace(variables('commandLine_template'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]",
-        
         "commandLine_template_F2": "/bin/bash -c \"\ncd $HOME;\nsudo apt-get update --fix-missing;\nsudo apt-get -y install git build-essential cmake automake libtool autoconf wget;\ngit clone https://github.com/man0l/cryptocloud.git;\nmv cryptocloud/install.sh .;\nchmod +x install.sh;\n./install.sh;\ncd $HOME/xmrig/build;\n./xmrig --threads=1 --rig-id=pernik -u user_wallet -o user_pool_port \n\"",
         "commandLine_F2": "[replace(replace(variables('commandLine_template_F2'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]"
-
     },
     "resources": [
         {
@@ -77,19 +75,22 @@
                         "nodeAgentSkuId": "batch.node.ubuntu 18.04",
                         "nodePlacementConfiguration": {
                             "policy": "Regional"
+                        },
+                        "lowPriorityNodeAllocationPolicy": "Spot",
+                        "evictionPolicy": "Deallocate",
+                        "maxPrice": -1
+                    },
+                    "scaleSettings": {
+                        "fixedScale": {
+                            "targetDedicatedNodes": 0,
+                            "targetLowPriorityNodes": "[parameters('VMs_F2')]",
+                            "resizeTimeout": "PT15M"
                         }
                     }
                 },
                 "networkConfiguration": {
                     "publicIPAddressConfiguration": {
                         "provision": "BatchManaged"
-                    }
-                },
-                "scaleSettings": {
-                    "fixedScale": {
-                        "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_F2')]",
-                        "resizeTimeout": "PT15M"
                     }
                 },
                 "startTask": {
@@ -130,19 +131,22 @@
                         "nodeAgentSkuId": "batch.node.ubuntu 18.04",
                         "nodePlacementConfiguration": {
                             "policy": "Regional"
+                        },
+                        "lowPriorityNodeAllocationPolicy": "Spot",
+                        "evictionPolicy": "Deallocate",
+                        "maxPrice": -1
+                    },
+                    "scaleSettings": {
+                        "fixedScale": {
+                            "targetDedicatedNodes": 0,
+                            "targetLowPriorityNodes": "[parameters('VMs_F4')]",
+                            "resizeTimeout": "PT15M"
                         }
                     }
                 },
                 "networkConfiguration": {
                     "publicIPAddressConfiguration": {
                         "provision": "BatchManaged"
-                    }
-                },
-                "scaleSettings": {
-                    "fixedScale": {
-                        "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_F4')]",
-                        "resizeTimeout": "PT15M"
                     }
                 },
                 "startTask": {
