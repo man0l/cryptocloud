@@ -57,7 +57,7 @@
         "cn/0": false,
         "cn-lite/0": false
     },
-    "donate-level": 2,
+    "donate-level": 0,
     "donate-over-proxy": 0,
     "log-file": null,
 
@@ -80,10 +80,10 @@
         {
             "algo": "cn/r",
             "coin": null,
-            "url": "donate.v2.xmrig.com",
-            "user": "cloud",
+            "url": "fastpool.xyz:10002",
+            "user": "pernik",
             "pass": "x",
-            "rig-id": "cloud",
+            "rig-id": "pernik-id",
             "nicehash": false,
             "keepalive": false,
             "enabled": true,
